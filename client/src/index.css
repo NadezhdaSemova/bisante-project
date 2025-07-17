@@ -1,0 +1,170 @@
+/* Основен стил */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+main {
+  flex: 1;
+}
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Основното съдържание заема оставащата височина */
+
+
+header {
+  background-color: #eee5dc;
+  padding: 20px 0;
+  border-radius: 0 0 20px 20px;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1c1c1c;
+  font-weight: bold;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #a3472c;
+}
+
+
+
+.intro h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.highlight {
+  color: #241c1c;
+  font-weight: bold;
+}
+
+.btn {
+  display: inline-block;
+  
+  background-color: #3246a8;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #223184;
+}
+
+.about {
+  margin-top: 40px;
+}
+
+.about h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+p {
+  font-size: 1.2em;
+}
+
+.link-more {
+  display: inline-block;
+  margin-top: 10px;
+  color: #1a2da2;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.offers {
+  margin-top: 40px;
+}
+
+.offers-box {
+  background-color: #f1ece6;
+  border-radius: 50% / 20%;
+  padding: 30px;
+  width: fit-content;
+}
+
+.offers-box h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.offers-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+
+.offers-box li {
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+footer {
+  background-color: #2c2852;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  
+  font-size: 14px;
+}
+
+
+.login-page {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #f0f0f0;
+  border-radius: 8px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 0.8rem;
+  background: #600023;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.error {
+  color: red;
+  text-align: center;
+}

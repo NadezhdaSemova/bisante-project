@@ -1,0 +1,95 @@
+.cart {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fffaf8;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #5a1a01;
+}
+
+.cart ul {
+  list-style: none;
+  padding: 0;
+}
+
+.cart li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+/* .cart button {
+  background-color: #b22222;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+} */
+.cart .remove-btn .btn{
+  padding: 0.5em 1em;
+  margin: 0;
+}
+
+.btn-left{
+  position: inherit;
+  width: 1.5em;
+  height: 1.5em;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.btn-right{
+  position: inherit;
+  width: 1.5em;
+  height: 1.5em;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.quantity{
+  margin: 0.5em;
+}
+
+.cart button:hover {
+  background-color: #8b1a1a;
+}
+
+.cart p strong {
+  color: #000;
+}
+
+/* styles/cart.css */
+.order-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.order-form input,
+.order-form textarea {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.thank-you {
+  text-align: center;
+  margin-top: 50px;
+}
+

@@ -1,0 +1,178 @@
+.admin-nav{
+  display: flex;
+  gap: 3em;
+}
+.admin-dashboard,
+.login-form {
+  max-width: 90vw;
+  margin: 5px auto;
+  padding: 3px 25px;
+  background: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.admin-dashboard h2,
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.admin-dashboard input,
+.login-form input,
+.admin-dashboard button,
+.login-form button {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  transition: border 0.3s;
+}
+
+.admin-dashboard input:focus,
+.login-form input:focus {
+  border-color: #8b2c2c;
+  outline: none;
+}
+
+.admin-dashboard button,
+.login-form button {
+  background-color: #8b2c2c;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.admin-dashboard button:hover,
+.login-form button:hover {
+  background-color: #a33a3a;
+}
+
+.order-item{
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+
+.login-form p {
+  color: red;
+  text-align: center;
+}
+
+.admin-dashboard ul{
+  list-style-type: none;
+}
+
+.orders-list input[type="checkbox"] {
+  margin-right: 0.5rem;
+  transform: scale(1.2);
+}
+.orders-list button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+.orders-list button:hover {
+  background-color: #388e3c;
+}
+
+.nav-button {
+    background-color: #861414;
+    color: white;
+    padding: 12px 24px;
+    margin: 4px;
+    border-radius: 6px;
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+    background-color: #a01a1a;
+}
+
+.nav-button.active-tab {
+    background-color: #e4c218;
+    color: #222;
+}
+
+/* Cards */
+.card {
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  background-color: #fff;
+}
+.card-header {
+  font-size: 18px;
+  font-weight: bold;
+  color: #861414;
+  margin-bottom: 10px;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  line-height: 1.6;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: white;
+  margin-right: 6px;
+  margin-bottom: 8px;
+}
+.badge-success {
+  background-color: #28a745;
+}
+.badge-warning {
+  background-color: #07f3ff;
+}
+.badge-danger {
+  background-color: #dc3545;
+}
+
+.orders-list {
+  display: flex;
+  gap: 2em;
+  flex-wrap: wrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .admin-nav {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .admin-dashboard input,
+  .admin-dashboard button,
+  .login-form input,
+  .login-form button {
+    font-size: 14px;
+  }
+
+  .order-item {
+    padding: 12px;
+  }
+}
+
