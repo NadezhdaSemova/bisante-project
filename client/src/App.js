@@ -16,8 +16,9 @@ import ProductDetails from './components/pages/ProductDetails';
 import ThankYou from './components/pages/ThankYou';
 function App() {
   return (
-    <div className="app-layout"> {/* <<< това е ключово */}
-      <Router>
+    <Router>
+      <div className="app-layout"> {/* <<< това е ключово */}
+
         <Header />
         <main className="main-content container">
           <Routes>
@@ -34,9 +35,10 @@ function App() {
           </Routes>
         </main>
         <Footer />
-     
-      </Router>
-    </div>
+
+
+      </div>
+    </Router>
   );
 }
 
