@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/admin.css';
+import { API_BASE_URL } from '../../config';
 
-const AdminDashboard = () => {
+const AdminPanel = () => {
   const { admin, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -30,7 +31,7 @@ const AdminDashboard = () => {
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/api/products', {
+      const res = await fetch(`${API_BASE_URL}/api/products`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(product)
@@ -50,7 +51,7 @@ const AdminDashboard = () => {
 
   const updateOrder = async (id, updateData) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/orders/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/orders/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updateData),
@@ -68,7 +69,7 @@ const AdminDashboard = () => {
 
   const completeOrder = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/orders/${id}/complete`, {
+      const res = await fetch(`${API_BASE_URL}/api/orders/${id}/complete`, {
         method: 'PATCH',
       });
 
@@ -82,7 +83,7 @@ const AdminDashboard = () => {
 
   const uncompleteOrder = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/orders/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/orders/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ isCompleted: false }),
@@ -100,7 +101,7 @@ const AdminDashboard = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/orders');
+      const res = await fetch(`${API_BASE_URL}/api/orders`);
       const data = await res.json();
       setOrders(data.filter(order => !order.isCompleted));
       setArchivedOrders(data.filter(order => order.isCompleted));
@@ -272,4 +273,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default AdminPanel;

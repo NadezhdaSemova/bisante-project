@@ -9,7 +9,6 @@ import Footer from './components/Footer';
 import AdminPanel from './components/pages/AdminPanel';
 import Login from './components/pages/Login';
 
-// import AdminDashboard from './components/pages/AdminDashboard';
 import AdminLogin from './components/pages/AdminLogin';
 import ProductDetails from './components/pages/ProductDetails';
 
@@ -30,7 +29,6 @@ function App() {
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin-login" element={<AdminLogin />} />
-            {/* <Route path="/admin" element={<AdminDashboard />} /> */}
             <Route path="/products/:id" element={<ProductDetails />} />
             <Route path="/thank-you" element={<ThankYou />} />
           </Routes>
