@@ -7,16 +7,7 @@ import '../../styles/productCard.css'
 
 
 function Home() {
-  // const [topProducts, setTopProducts] = useState([]);
-
-  // useEffect(() => {
-  //   fetch('http://localhost:5000/api/products')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       const sorted = data.sort((a, b) => b.purchaseCount - a.purchaseCount);
-  //       setTopProducts(sorted.slice(0, 3));
-  //     });
-  // }, []);
+ 
 
   return (
     <div className="home-layout">

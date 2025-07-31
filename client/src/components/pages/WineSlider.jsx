@@ -2,6 +2,7 @@ import Slider from 'react-slick';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/slider.css';
+import { API_BASE_URL } from '../../config';
 
 const WineSlider = () => {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ const WineSlider = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch('http://localhost:5000/api/products');
+      const res = await fetch(`${API_BASE_URL}/api/products`);
       const data = await res.json();
       setProducts(data);
     };
