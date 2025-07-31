@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { API_BASE_URL } from '../../config';
 
 const PendingOrders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/orders')
+    fetch(`${API_BASE_URL}/api/orders`)
       .then(res => res.json())
       .then(data => {
         const pending = data.filter(order => !order.isCompleted);
@@ -15,7 +16,7 @@ const PendingOrders = () => {
 
   const updateOrder = async (id, field) => {
     try {
-      await fetch(`http://localhost:5000/api/orders/${id}`, {
+      await fetch(`${API_BASE_URL}/api/orders/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ [field]: true }),
@@ -33,7 +34,7 @@ const PendingOrders = () => {
 
   const completeOrder = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/orders/${id}/complete`, {
+      await fetch(`${API_BASE_URL}/api/orders/${id}/complete`, {
         method: 'PATCH',
       });
       setOrders(prev => prev.filter(order => order._id !== id));
