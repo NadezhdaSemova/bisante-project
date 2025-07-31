@@ -1,5 +1,6 @@
 // src/context/AuthContext.js
 import { createContext, useContext, useState } from 'react';
+import {API_BASE_URL} from '../../src/config'
 
 const AuthContext = createContext();
 
@@ -7,12 +8,25 @@ export const AuthProvider = ({ children }) => {
   const [admin, setAdmin] = useState(null);
 
   const login = async (username, password) => {
-    if (username === 'admin' && password === 'admin123') {
-      setAdmin({ username: 'admin' });
-      localStorage.setItem('isAdmin', 'true');
-      return { success: true };
-    } else {
-      return { success: false, message: 'Невалидни данни' };
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/admins/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setAdmin(data.admin);
+        localStorage.setItem('isAdmin', 'true');
+        return { success: true };
+      } else {
+        return { success: false, message: data.message || 'Грешка при вход' };
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      return { success: false, message: 'Сървърна грешка' };
     }
   };
 

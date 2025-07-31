@@ -20,23 +20,18 @@ router.post('/register', async (req, res) => {
 
 // Вход
 router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
   try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username });
-    if (!user) return res.status(401).json({ error: 'Невалиден потребител' });
+    const admin = await User.findOne({ username });
+    if (!admin) return res.status(401).json({ message: 'Невалиден потребител' });
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ error: 'Невалидна парола' });
+    const isMatch = await bcrypt.compare(password, admin.password);
+    if (!isMatch) return res.status(401).json({ message: 'Грешна парола' });
 
-    const token = jwt.sign(
-      { id: user._id, username: user.username, isAdmin: user.isAdmin },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
-
-    res.json({ token });
+    res.json({ success: true, admin: { username: admin.username } });
   } catch (err) {
-    res.status(500).json({ error: 'Сървърна грешка' });
+    res.status(500).json({ message: 'Грешка при вход' });
   }
 });
 
