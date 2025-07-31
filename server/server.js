@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/orders', orderRoutes);
+
 
 // MongoDB Connection
 mongoose
@@ -33,6 +33,11 @@ mongoose
   })
   .then(() => console.log('✅ Успешна връзка с MongoDB!'))
   .catch((err) => console.error('❌ Грешка при свързване с MongoDB:', err));
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('❌ Нещо се обърка!');
+});
 
 app.listen(PORT, () => {
   console.log(`🚀 Сървърът работи на http://localhost:${PORT}`);
