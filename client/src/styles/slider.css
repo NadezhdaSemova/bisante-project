@@ -39,6 +39,7 @@
 .wine-card h3 {
     margin-top: 0.7rem;
     font-size: 1.2rem;
+    text-wrap:wrap;
 }
 
 .wine-card button {
