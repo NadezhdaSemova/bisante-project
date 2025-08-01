@@ -1,20 +1,17 @@
-// routes/auth.js
+
 import express from 'express';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 const router = express.Router();
 
-// Регистрация
-// POST /api/admins/register
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const exists = await Admin.findOne({ username });
+    const exists = await User.findOne({ username });
     if (exists) return res.status(400).json({ message: 'Админ с това потребителско име вече съществува.' });
 
-    const newAdmin = new Admin({ username, password });
+    const newAdmin = new User({ username, password });
     await newAdmin.save();
 
     res.status(201).json({ success: true, admin: { username: newAdmin.username } });
