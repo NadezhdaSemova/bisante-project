@@ -21,7 +21,7 @@ const WineSlider = () => {
     dots: true,
     infinite: true,
     speed: 800,
-    slidesToShow: 1,
+    slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 10000, // ⏱️ върти на всеки 10 секунди
@@ -29,7 +29,7 @@ const WineSlider = () => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1
         }
       }
