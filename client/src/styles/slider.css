@@ -59,3 +59,8 @@
 .wine-card:first-child {
     margin-right: 40px;
 }
+
+.slick-next{
+    background: #861414;
+    height: 40px;
+}
