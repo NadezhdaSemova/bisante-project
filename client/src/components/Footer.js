@@ -8,7 +8,7 @@ const [showAdminLink, setShowAdminLink] = useState(false);
 
   useEffect(() => {
     const handleKeyPress = (e) => {
-      if (e.ctrlKey && e.key.toLowerCase() === 'a') {
+      if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 'a') {
         setShowAdminLink(true);
       }
     };
@@ -18,7 +18,7 @@ const [showAdminLink, setShowAdminLink] = useState(false);
   }, []);
 
   return (
-    <footer>
+    <footer tabIndex="-1">
       <p>© 2025 Винарна Бисанте. Всички права запазени.</p>
 
       {showAdminLink && (
