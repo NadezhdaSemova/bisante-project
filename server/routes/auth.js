@@ -6,17 +6,24 @@ import User from '../models/User.js';
 const router = express.Router();
 
 // Регистрация
+// POST /api/admins/register
 router.post('/register', async (req, res) => {
+  const { username, password } = req.body;
+
   try {
-    const { username, password, isAdmin } = req.body;
-    const hashed = await bcrypt.hash(password, 10);
-    const user = new User({ username, password: hashed, isAdmin });
-    await user.save();
-    res.status(201).json({ message: 'Регистрацията е успешна' });
+    const exists = await Admin.findOne({ username });
+    if (exists) return res.status(400).json({ message: 'Админ с това потребителско име вече съществува.' });
+
+    const newAdmin = new Admin({ username, password });
+    await newAdmin.save();
+
+    res.status(201).json({ success: true, admin: { username: newAdmin.username } });
   } catch (err) {
-    res.status(400).json({ error: 'Потребителят вече съществува или има грешка' });
+    console.error('Admin register error:', err);
+    res.status(500).json({ message: 'Грешка при регистрация' });
   }
 });
+
 
 // Вход
 router.post('/login', async (req, res) => {

@@ -10,10 +10,12 @@ import AdminPanel from './components/pages/AdminPanel';
 import Login from './components/pages/Login';
 
 import AdminLogin from './components/pages/AdminLogin';
+
 import ProductDetails from './components/pages/ProductDetails';
 
 
 import ThankYou from './components/pages/ThankYou';
+import AdminRegister from './components/pages/AdminRegister';
 function App() {
   return (
     <Router>
@@ -30,6 +32,7 @@ function App() {
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="admin-register" element={<AdminRegister />} />
             <Route path="/products/:id" element={<ProductDetails />} />
             <Route path="/thank-you" element={<ThankYou />} />
           </Routes>

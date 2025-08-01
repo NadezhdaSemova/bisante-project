@@ -1,6 +1,6 @@
 // src/components/AdminLogin.js
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import '../../styles/admin.css'
 
@@ -30,6 +30,8 @@ const AdminLogin = () => {
         <button type="submit">Влез</button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <p><Link to="/admin-register">Регистрация</Link></p>
+
     </div>
   );
 };
