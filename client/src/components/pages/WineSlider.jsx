@@ -21,8 +21,8 @@ const WineSlider = () => {
     dots: true,
     infinite: true,
     speed: 800,
-    slidesToShow: 2,
-    slidesToScroll: 2,
+    slidesToShow: 1,
+    slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 10000, // ⏱️ върти на всеки 10 секунди
     responsive: [
@@ -44,7 +44,7 @@ const WineSlider = () => {
           <div className="wine-card animated" key={product._id}>
            <img className='product-img' src={product.image} alt={product.name} />
             <h3>{product.name}</h3>
-            <p>{product.price.toFixed(2)} лв.</p>
+            <p>{product.price.toFixed(2)} лв. / {(product.price / 1.95583).toFixed(2)} €</p>
             <button className='btn' onClick={() => navigate(`/products/${product._id}`)}>Детайли</button>
           </div>
         ))}

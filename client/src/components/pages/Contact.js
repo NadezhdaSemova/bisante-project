@@ -13,7 +13,7 @@ const Contact = () => {
           <FontAwesomeIcon icon={faMapMarkerAlt} /> <strong>Адрес:  </strong> 6450 гр. Харманли, ул "Колю Фичето" №4
         </p>
         <p>
-          <FontAwesomeIcon icon={faPhone} /> <strong>Телефон:</strong> +359 893 767 600
+          <FontAwesomeIcon icon={faPhone} /> <strong>Телефон:</strong> +359 878 686 904
         </p>
         <p>
           <FontAwesomeIcon icon={faEnvelope} /> <strong>Имейл:</strong> bisante@abv.bg
