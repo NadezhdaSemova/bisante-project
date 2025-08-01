@@ -6,18 +6,28 @@ footer {
 }
 
 /* styles/footer.css */
-.secret-admin-link {
-  opacity: 0.05;
-  font-size: 10px;
-  position: absolute;
-  bottom: 5px;
-  right: 10px;
-  text-decoration: none;
-  color: inherit;
-  transition: opacity 0.3s ease;
+/* Footer.css */
+
+.site-footer {
+  padding: 20px;
+  text-align: center;
+  background-color: #111;
+  color: #fff;
+  position: relative;
 }
 
-.secret-admin-link:hover {
-  opacity: 0.4;
-  cursor: pointer;
+/* Скрит бутон */
+.admin-link-hidden {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.05); /* почти невидим */
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
+
+.admin-link-hidden:hover {
+  color: #fff; /* При ховър да става видим */
+}
+
