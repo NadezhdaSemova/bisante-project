@@ -16,18 +16,20 @@ footer {
   position: relative;
 }
 
-/* Скрит бутон */
-.admin-link-hidden {
+.admin-link-visible {
   position: absolute;
   right: 10px;
   bottom: 10px;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.05); /* почти невидим */
+  color: #ffffff;
   text-decoration: none;
-  transition: color 0.3s ease;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  transition: background 0.3s;
 }
 
-.admin-link-hidden:hover {
-  color: #fff; /* При ховър да става видим */
+.admin-link-visible:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
