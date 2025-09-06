@@ -32,8 +32,7 @@ const ProductDetails = () => {
 
       <div className="product-info">
         <h2>{product.name}</h2>
-        <p><strong>Цвят:</strong> {product.color}</p>
-        <p><strong>Цена:</strong> {product.price.toFixed(2)} лв. / {(product.price / 1.95583).toFixed(2)} €</p>
+                <p><strong>Цена:</strong> {product.price.toFixed(2)} лв. / {(product.price / 1.95583).toFixed(2)} €</p>
         <p><strong>Сорт:</strong> {product.grape}</p>
         <p><strong>Реколта:</strong> {product.vintage}</p>
         <p><strong>Тип бутилка:</strong> {product.bottleType}</p>

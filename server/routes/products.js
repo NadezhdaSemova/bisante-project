@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const {
     name,
+    year,
     color,
     price,
     image,
@@ -31,6 +32,7 @@ router.post('/', async (req, res) => {
   try {
     const newProduct = new Product({
       name,
+      year,
       color,
       price,
       image,

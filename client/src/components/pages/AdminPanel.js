@@ -42,7 +42,7 @@ const AdminPanel = () => {
       const data = await res.json();
       if (res.ok) {
         alert('Продуктът е добавен успешно!');
-        setProduct({ name: '', price: '', description: '', image: '' });
+        setProduct({ name: '', year: '', price: '', description: '', image: '' });
       } else {
         alert(data.error || 'Грешка при добавяне');
       }
@@ -176,6 +176,8 @@ const AdminPanel = () => {
           <form onSubmit={handleAdd} className="admin-form">
             <h3>Добавяне на ново вино</h3>
             <input type="text" name="name" placeholder="Име" value={product.name} onChange={handleChange} required />
+            <input type="text" name="year" placeholder="Година" value={product.year} onChange={handleChange} required />
+
             <input type="number" name="price" placeholder="Цена" value={product.price} onChange={handleChange} required />
             <textarea name="description" placeholder="Описание" value={product.description} onChange={handleChange} required />
             <input type="text" name="image" placeholder="URL на изображение" value={product.image} onChange={handleChange} required />
