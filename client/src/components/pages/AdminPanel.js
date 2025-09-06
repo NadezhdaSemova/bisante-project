@@ -24,6 +24,8 @@ const AdminPanel = () => {
     image: ''
   });
 
+  const [products, setProducts] = useState([]);
+
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
@@ -46,6 +48,31 @@ const AdminPanel = () => {
       }
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/products`);
+      const data = await res.json();
+      setProducts(data);
+    } catch (err) {
+      console.error('Грешка при зареждане на продуктите:', err);
+    }
+  };
+
+  const deleteProduct = async (id) => {
+    if (!window.confirm('Сигурни ли сте, че искате да изтриете това вино?')) return;
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/products/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (res.ok) {
+        setProducts(prev => prev.filter(p => p._id !== id));
+      }
+    } catch (err) {
+      console.error('Грешка при изтриване на виното:', err);
     }
   };
 
@@ -121,6 +148,9 @@ const AdminPanel = () => {
     if (activeTab === 'orders' || activeTab === 'archive') {
       fetchOrders();
     }
+    if (activeTab === 'productsList') {
+      fetchProducts();
+    }
   }, [activeTab]);
 
 
@@ -134,6 +164,7 @@ const AdminPanel = () => {
       <h2>Административен Панел</h2>
       <div className="admin-nav">
         <button className={`nav-button ${activeTab === 'addProduct' ? 'active-tab' : ''}`} onClick={() => setActiveTab('addProduct')}>➕ Добави вино</button>
+        <button className={`nav-button ${activeTab === 'productsList' ? 'active-tab' : ''}`} onClick={() => setActiveTab('productsList')}>🍷 Всички вина</button>
         <button className={`nav-button ${activeTab === 'orders' ? 'active-tab' : ''}`} onClick={() => setActiveTab('orders')}>📬 Получени заявки</button>
         <button className={`nav-button ${activeTab === 'archive' ? 'active-tab' : ''}`} onClick={() => setActiveTab('archive')}>📁 Архив</button>
         <button className="nav-button" onClick={logout}>🚪 Изход</button>
@@ -152,6 +183,28 @@ const AdminPanel = () => {
           </form>
         )}
 
+        {activeTab === 'productsList' && (
+          <div>
+            <h3>🍷 Списък с всички вина</h3>
+            {products.length === 0 ? (
+              <p>Няма добавени вина.</p>
+            ) : (
+              <ul className="products-list">
+                {products.map(p => (
+                  <li key={p._id} className="product-item card">
+                    <img src={p.image} alt={p.name} style={{ width: '100px' }} />
+                    <div>
+                      <h4>{p.name}</h4>
+                      <p>{p.price} лв.</p>
+                    </div>
+                    <button onClick={() => deleteProduct(p._id)}>❌ Изтрий</button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+
         <ul className="orders-list">
           {orders.map(order => (
             <li key={order._id} className="order-item card">
@@ -165,8 +218,8 @@ const AdminPanel = () => {
                 <ul>
                   <p><strong>Поръчани вина</strong></p>
                   {order.items.map((item, idx) => (
-                    
-                    <li key={idx}> 
+
+                    <li key={idx}>
                       {item.name} – {item.quantity} бр. @ {item.price.toFixed(2)} лв. / {(item.price * 1.95583).toFixed(2)}€
                     </li>
                   ))}
