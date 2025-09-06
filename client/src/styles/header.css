@@ -72,9 +72,9 @@
 
 @media (max-width: 1036px) {
   .nav {
-    position: absolute;
+ position: absolute;
     top: 100%;
-    right: 0.2em;
+    right: 1rem;
     border-radius: 1em;
     flex-direction: column;
     background-color: #630f16;
@@ -82,8 +82,8 @@
     padding: 1rem 2rem;
     text-align: center;
     gap: 1em;
-    width: 10em;
-
+    width: 12em;
+    z-index: 1000;
   }
 
   .nav.open {
@@ -92,10 +92,15 @@
 
   .nav a {
     margin-left: 0;
+    font-size: 1.2rem;
   }
 
   .hamburger {
     display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 1100;
   }
 
 }

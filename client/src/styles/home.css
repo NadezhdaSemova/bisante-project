@@ -116,6 +116,7 @@ font-size: 1.3em;
 
   .left-image, .right-content {
     width: 100%;
+    height: auto;
     margin: 0;
     border-radius: 0;
   }
@@ -124,7 +125,10 @@ font-size: 1.3em;
     height: 300px;
     object-fit: cover;
   }
-
+ .intro {
+  margin-top: 0;
+  padding-bottom: 0;
+ }
   .intro h1 {
     font-size: 2rem;
   }

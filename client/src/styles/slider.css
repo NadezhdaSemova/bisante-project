@@ -83,12 +83,17 @@
 /* Responsive */
 @media (max-width: 768px) {
   .wine-slider {
-    padding: 1rem 0.5rem;
+    padding: 1rem;
   }
 
   .wine-card {
-    max-width: 90%;
-    margin: auto;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 300px;
+  }
+
+  .wine-card img{
+    max-height: 200px;
   }
 
   .slick-prev,

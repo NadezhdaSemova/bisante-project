@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import {useCart} from '../context/CartContext'
 import '../styles/header.css';
 import logo from '../assets/logo.png';
@@ -8,17 +8,25 @@ function Header() {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const location = useLocation();
+
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   const { getTotalItems } = useCart();
+
+ useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
   return (
-   <header className="header">
-   <div className="logo-title">
+    <header className="header">
+      <div className="logo-title">
         <Link to="/" className="logo-link">
           <img src={logo} alt="Лого" className="logo" />
           <span className="site-title">Винарна Бисанте</span>
         </Link>
       </div>
+
       <nav className={`nav ${menuOpen ? 'open' : ''}`}>
         <Link to="/">Начало</Link>
         <Link to="/products">Продукти</Link>
@@ -40,6 +48,7 @@ function Header() {
     </header>
   );
 }
+
 
 export default Header;
 
