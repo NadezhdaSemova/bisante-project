@@ -33,6 +33,15 @@ router.post('/', async (req, res) => {
     });
 
     await newOrder.save();
+
+      await sendOrderEmail({
+      name: customerName,
+      email: customerEmail,
+      phone: customerPhone,
+      products: items,
+      total: items.reduce((sum, i) => sum + i.price * i.quantity, 0),
+    });
+    
     res.status(201).json(newOrder);
   } catch (err) {
     console.error('❌ Грешка при създаване на поръчка:', err);
@@ -40,20 +49,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
-  try {
-    const newOrder = new Order(req.body);
-    await newOrder.save();
-
-    // 📧 изпращаме имейл
-    await sendOrderEmail(req.body);
-
-    res.status(201).json(newOrder);
-  } catch (err) {
-    console.error("❌ Грешка при създаване на поръчка:", err);
-    res.status(500).json({ error: "Грешка при създаване на поръчка" });
-  }
-});
 
 // Маркиране като изпълнена
 router.patch('/:id/complete', async (req, res) => {
