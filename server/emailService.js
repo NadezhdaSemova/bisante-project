@@ -1,59 +1,61 @@
 import nodemailer from "nodemailer";
 
-// Създаваме транспорта за Gmail
+// Настройка на транспорта за ABV SMTP
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.abv.bg",
+  port: 465, // SSL порт
+  secure: true, // използваме SSL
   auth: {
-    user: process.env.EMAIL_USER, // твоят Gmail
-    pass: process.env.EMAIL_PASS, // App Password
+    user: process.env.EMAIL_USER, // вашият ABV имейл
+    pass: process.env.EMAIL_PASS, // парола или app password
   },
 });
 
-// Проверка на SMTP
+// Проверка на SMTP връзката
 transporter.verify((error, success) => {
   if (error) {
-    console.error("❌ SMTP трансферът не е валиден:", error);
+    console.error("❌ SMTP връзката към ABV не е валидна:", error);
   } else {
-    console.log("✅ SMTP трансферът е готов за изпращане на имейли");
+    console.log("✅ SMTP връзката към ABV е готова за изпращане на имейли");
   }
 });
 
 // Функция за изпращане на имейл
-export const sendOrderEmail = async (orderData) => {
-  const { name, email, phone, products, total } = orderData;
+export const изпратиИмейлПоръчка = async (данниЗаПоръчка) => {
+  const { име, имейл, телефон, продукти, общо } = данниЗаПоръчка;
 
-  if (!products || !Array.isArray(products) || products.length === 0) {
+  if (!продукти || !Array.isArray(продукти) || продукти.length === 0) {
     console.warn("⚠️ products не е валиден масив, имейлът няма да се изпрати правилно.");
     return;
   }
 
-  const productList = products
+  const списъкПродукти = продукти
     .map((p) => `${p.name || "Неизвестен продукт"} x${p.quantity || 0}`)
     .join("\n");
 
   const mailOptions = {
     from: `"Bisante" <${process.env.EMAIL_USER}>`,
-    to: process.env.NOTIFY_EMAIL,
+    to: process.env.NOTIFY_EMAIL, // имейл за уведомления (може да е същият ABV)
     subject: "🛒 Нова поръчка в сайта",
     text: `
 Нова поръчка:
 
-Име: ${name || "Неизвестно"}
-Телефон: ${phone || "Неизвестен"}
-Имейл: ${email || "Неизвестен"}
+Име: ${име || "Неизвестно"}
+Телефон: ${телефон || "Неизвестен"}
+Имейл: ${имейл || "Неизвестен"}
 
 Продукти:
-${productList}
+${списъкПродукти}
 
-Общо: ${total || 0} лв.
+Общо: ${общо || 0} лв.
     `,
   };
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log("✅ Имейл изпратен успешно:", info.response);
+    console.log("✅ Имейлът е изпратен успешно:", info.response);
   } catch (err) {
-    console.error("❌ Грешка при изпращане на имейл:", err);
+    console.error("❌ Грешка при изпращане на имейл към ABV:", err);
   }
 };
 
