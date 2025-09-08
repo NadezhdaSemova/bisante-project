@@ -1,6 +1,7 @@
 // routes/orderRoutes.js
 import express from 'express';
 import Order from '../models/Order.js';
+import { sendOrderEmail } from "../services/emailService.js";
 
 const router = express.Router();
 
@@ -36,6 +37,21 @@ router.post('/', async (req, res) => {
   } catch (err) {
     console.error('❌ Грешка при създаване на поръчка:', err);
     res.status(500).json({ error: 'Грешка при създаване на поръчката.' });
+  }
+});
+
+router.post("/", async (req, res) => {
+  try {
+    const newOrder = new Order(req.body);
+    await newOrder.save();
+
+    // 📧 изпращаме имейл
+    await sendOrderEmail(req.body);
+
+    res.status(201).json(newOrder);
+  } catch (err) {
+    console.error("❌ Грешка при създаване на поръчка:", err);
+    res.status(500).json({ error: "Грешка при създаване на поръчка" });
   }
 });
 
