@@ -50,7 +50,6 @@ router.post('/', async (req, res) => {
         products: items,
         total
       });
-      console.log('✅ Имейл изпратен успешно');
     } catch (emailErr) {
       console.error('❌ Имейлът не можа да бъде изпратен:', emailErr);
     }

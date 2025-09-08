@@ -4,28 +4,36 @@ import nodemailer from "nodemailer";
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER, // твоя Gmail адрес
-    pass: process.env.EMAIL_PASS, // Gmail App Password
+    user: process.env.EMAIL_USER, // твоят Gmail
+    pass: process.env.EMAIL_PASS, // App Password
   },
 });
 
-// Функция за изпращане на имейл за нова поръчка
+// Проверка на SMTP
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("❌ SMTP трансферът не е валиден:", error);
+  } else {
+    console.log("✅ SMTP трансферът е готов за изпращане на имейли");
+  }
+});
+
+// Функция за изпращане на имейл
 export const sendOrderEmail = async (orderData) => {
   const { name, email, phone, products, total } = orderData;
 
-  if (!products || !Array.isArray(products)) {
-    console.warn("⚠️ products не е масив, имейлът няма да се изпрати правилно.");
+  if (!products || !Array.isArray(products) || products.length === 0) {
+    console.warn("⚠️ products не е валиден масив, имейлът няма да се изпрати правилно.");
     return;
   }
 
-  // Създаваме списък с продукти
   const productList = products
     .map((p) => `${p.name || "Неизвестен продукт"} x${p.quantity || 0}`)
     .join("\n");
 
   const mailOptions = {
     from: `"Bisante" <${process.env.EMAIL_USER}>`,
-    to: process.env.NOTIFY_EMAIL, // твоя имейл за уведомяване
+    to: process.env.NOTIFY_EMAIL,
     subject: "🛒 Нова поръчка в сайта",
     text: `
 Нова поръчка:
@@ -46,7 +54,7 @@ ${productList}
     console.log("✅ Имейл изпратен успешно:", info.response);
   } catch (err) {
     console.error("❌ Грешка при изпращане на имейл:", err);
-    // Можеш да добавиш логика за retry или алтернативен имейл
   }
 };
+
 
