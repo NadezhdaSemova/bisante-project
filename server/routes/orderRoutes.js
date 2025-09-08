@@ -1,7 +1,7 @@
 // routes/orderRoutes.js
 import express from 'express';
 import Order from '../models/Order.js';
-import { sendOrderEmail } from "../services/emailService.js";
+import { sendOrderEmail } from "../emailService.js";
 
 const router = express.Router();
 
