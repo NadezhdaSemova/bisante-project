@@ -10,15 +10,17 @@ const AdminPanel = () => {
 
   const [activeTab, setActiveTab] = useState('addProduct');
   const [orders, setOrders] = useState([]);
-
+  const [editingProduct, setEditingProduct] = useState(null);
   const [archivedOrders, setArchivedOrders] = useState([]);
   const [searchName, setSearchName] = useState('');
   const [searchDate, setSearchDate] = useState('');
 
 
+
   // ⭐ За добавяне на продукт
   const [product, setProduct] = useState({
     name: '',
+    year: '',
     price: '',
     description: '',
     image: ''
@@ -50,6 +52,34 @@ const AdminPanel = () => {
       console.error(err);
     }
   };
+
+  // Функция за PATCH продукт
+  const updateProduct = async (id, updatedFields) => {
+    try {
+      console.log("📤 PATCH към API:", `${API_BASE_URL}/api/products/${id}`);
+      console.log("📦 Тяло:", updatedFields);
+
+      const res = await fetch(`${API_BASE_URL}/api/products/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedFields),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Грешка при редакция");
+      }
+
+      const data = await res.json();
+      fetchProducts(); // презареждане на списъка
+      setEditingProduct(null);
+      return data;
+    } catch (err) {
+      console.error("❌ Грешка при редакция:", err.message);
+      alert("Неуспешна редакция!");
+    }
+  };
+
 
   const fetchProducts = async () => {
     try {
@@ -194,18 +224,79 @@ const AdminPanel = () => {
               <ul className="products-list">
                 {products.map(p => (
                   <li key={p._id} className="product-item card">
-                    <img src={p.image} alt={p.name} style={{ width: '100px' }} />
-                    <div>
-                      <h4>{p.name}</h4>
-                      <p>{p.price} лв.</p>
-                    </div>
-                    <button onClick={() => deleteProduct(p._id)}>❌ Изтрий</button>
+                    {editingProduct?._id === p._id ? (
+                      <form
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          const { _id, ...cleanProduct } = editingProduct;
+                          updateProduct(_id, cleanProduct);
+                        }}
+                      >
+                        <input
+                          type="text"
+                          value={editingProduct.name}
+                          onChange={(e) =>
+                            setEditingProduct({ ...editingProduct, name: e.target.value })
+                          }
+                          required
+                        />
+                        <input
+                          type="number"
+                          value={editingProduct.year}
+                          onChange={(e) =>
+                            setEditingProduct({ ...editingProduct, year: Number(e.target.value) })
+                          }
+                          required
+                        />
+                        <input
+                          type="number"
+                          value={editingProduct.price}
+                          onChange={(e) =>
+                            setEditingProduct({ ...editingProduct, price: Number(e.target.value) })
+                          }
+                          required
+                        />
+                        <textarea
+                          value={editingProduct.description}
+                          onChange={(e) =>
+                            setEditingProduct({
+                              ...editingProduct,
+                              description: e.target.value,
+                            })
+                          }
+                          required
+                        />
+                        <input
+                          type="text"
+                          value={editingProduct.image}
+                          onChange={(e) =>
+                            setEditingProduct({ ...editingProduct, image: e.target.value })
+                          }
+                          required
+                        />
+                        <button type="submit">💾 Запази</button>
+                        <button type="button" onClick={() => setEditingProduct(null)}>
+                          ❌ Отказ
+                        </button>
+                      </form>
+                    ) : (
+                      <>
+                        <img src={p.image} alt={p.name} style={{ width: '100px' }} />
+                        <div>
+                          <h4>{p.name}</h4>
+                          <p>{p.price} лв.</p>
+                        </div>
+                        <button onClick={() => setEditingProduct(p)}>✏️ Редактирай</button>
+                        <button onClick={() => deleteProduct(p._id)}>❌ Изтрий</button>
+                      </>
+                    )}
                   </li>
                 ))}
               </ul>
             )}
           </div>
         )}
+
 
         <ul className="orders-list">
           {orders.map(order => (

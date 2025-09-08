@@ -4,7 +4,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import productRoutes from './routes/products.js';
-// import orderRoutes from './routes/productRoutes.js';
 import authRoutes from './routes/auth.js';
 import orderRoutes from './routes/orderRoutes.js';
 import adminRoutes from './routes/adminRoutes.js'

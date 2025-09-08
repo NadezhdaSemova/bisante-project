@@ -1,5 +1,6 @@
 import express from 'express';
 import Product from '../models/Product.js';
+import mongoose from 'mongoose';
 
 const router = express.Router();
 
@@ -59,6 +60,29 @@ router.get('/:id', async (req, res) => {
   } catch (error) {
     console.error('Грешка при намиране на продукта:', error);
     res.status(500).json({ message: 'Възникна грешка при намиране на продукта' });
+  }
+});
+
+router.patch('/:id', async (req, res) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ error: 'Невалидно ID' });
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
+
+    if (!updatedProduct) {
+      return res.status(404).json({ error: 'Продуктът не е намерен' });
+    }
+
+    res.json(updatedProduct);
+  } catch (err) {
+    console.error('❌ Грешка при PATCH продукт:', err);
+    res.status(500).json({ error: 'Грешка при редакция' });
   }
 });
 
