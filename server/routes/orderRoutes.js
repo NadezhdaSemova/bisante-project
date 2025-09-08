@@ -20,9 +20,16 @@ router.post('/', async (req, res) => {
   try {
     const { customerName, customerPhone, customerEmail, customerAddress, items } = req.body;
 
-    if (!customerName || !customerPhone || !customerAddress || !Array.isArray(items)) {
+    if (!customerName || !customerPhone || !customerAddress || !Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: 'Невалидни данни за поръчка.' });
     }
+
+    // Изчисляване на общата сума безопасно
+    const total = items.reduce((sum, i) => {
+      const price = i.price || 0;
+      const quantity = i.quantity || 0;
+      return sum + price * quantity;
+    }, 0);
 
     const newOrder = new Order({
       customerName,
@@ -34,14 +41,20 @@ router.post('/', async (req, res) => {
 
     await newOrder.save();
 
+    // Опит за изпращане на имейл (не блокира поръчката при грешка)
+    try {
       await sendOrderEmail({
-      name: customerName,
-      email: customerEmail,
-      phone: customerPhone,
-      products: items,
-      total: items.reduce((sum, i) => sum + i.price * i.quantity, 0),
-    });
-    
+        name: customerName,
+        email: customerEmail,
+        phone: customerPhone,
+        products: items,
+        total
+      });
+      console.log('✅ Имейл изпратен успешно');
+    } catch (emailErr) {
+      console.error('❌ Имейлът не можа да бъде изпратен:', emailErr);
+    }
+
     res.status(201).json(newOrder);
   } catch (err) {
     console.error('❌ Грешка при създаване на поръчка:', err);
