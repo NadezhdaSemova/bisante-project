@@ -9,6 +9,7 @@ import orderRoutes from './routes/orderRoutes.js';
 import adminRoutes from './routes/adminRoutes.js'
 
 dotenv.config();
+console.log('EMAIL_USER from env:', process.env.EMAIL_USER);
 
 const app = express();
 const PORT = process.env.PORT || 5000;

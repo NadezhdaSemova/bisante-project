@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+console.log("DEBUG EMAIL_PASS length:", process.env.EMAIL_PASS ? process.env.EMAIL_PASS.length : "EMPTY");
 
 // Настройка на транспорта за ABV SMTP
 const transporter = nodemailer.createTransport({
@@ -7,7 +8,10 @@ const transporter = nodemailer.createTransport({
   secure: true, // използваме SSL
   auth: {
     user: process.env.EMAIL_USER, // вашият ABV имейл
-    pass: process.env.EMAIL_PASS, // парола или app password
+    pass: process.env.EMAIL_PASS // парола или app password
+  },
+  tls: {
+    rejectUnauthorized: false  // ABV често има стар сертификат
   },
 });
 
