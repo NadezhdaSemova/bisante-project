@@ -7,7 +7,7 @@ const router = express.Router();
 // GET всички продукти
 router.get('/', async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find().lean();
     res.json(products);
   } catch (err) {
     console.error('❌ Грешка при зареждане на продукти:', err.message);
