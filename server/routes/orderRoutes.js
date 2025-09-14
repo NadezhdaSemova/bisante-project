@@ -80,24 +80,7 @@ router.patch('/:id/complete', async (req, res) => {
   }
 });
 
-// router.patch('/:id', async (req, res) => {
-//   const { id } = req.params;
-//   const { isShipped, isPaid } = req.body;
 
-//   try {
-//     const order = await Order.findById(id);
-//     if (!order) return res.status(404).json({ message: 'Поръчката не е намерена' });
-
-//     if (typeof isShipped === 'boolean') order.isShipped = isShipped;
-//     if (typeof isPaid === 'boolean') order.isPaid = isPaid;
-
-//     await order.save();
-//     res.json({ message: 'Успешно обновено', order });
-//   } catch (err) {
-//     console.error('Грешка при обновяване:', err);
-//     res.status(500).json({ message: 'Сървърна грешка' });
-//   }
-// });
 
 router.patch('/:id', async (req, res) => {
   try {
